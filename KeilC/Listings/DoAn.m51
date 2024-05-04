@@ -1,0 +1,181 @@
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    05/05/2024  03:09:36  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
+D:\KEILC8051\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\main.obj TO .\Objects\DoAn PRINT (.\Listings\DoAn.m51)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\STARTUP.obj (?C_STARTUP)
+  .\Objects\main.obj (MAIN)
+  D:\KEILC8051\C51\LIB\C51S.LIB (?C?SLCMP)
+
+
+LINK MAP OF MODULE:  .\Objects\DoAn (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0002H     UNIT         _DATA_GROUP_
+            IDATA   000AH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     007DH     UNIT         ?PR?MAIN?MAIN
+            CODE    087DH     0027H     UNIT         ?PR?_SERVO_DELAY?MAIN
+            CODE    08A4H     0020H     UNIT         ?PR?_MSDELAY?MAIN
+            CODE    08C4H     0016H     UNIT         ?C?LIB_CODE
+            CODE    08DAH     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\DoAn (?C_STARTUP)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?MAIN
+
+?PR?MAIN?MAIN                  0008H    0002H
+  +--> ?PR?_SERVO_DELAY?MAIN
+  +--> ?PR?_MSDELAY?MAIN
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\DoAn (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:08DAH         SEGMENT       ?C_C51STARTUP
+  I:000AH         SEGMENT       ?STACK
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  05/05/2024  03:09:36  PAGE 2
+
+
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:08DDH         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:08DAH         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:08DAH         LINE#         133
+  C:08DCH         LINE#         134
+  C:08DDH         LINE#         135
+  C:08DEH         LINE#         136
+  C:08E0H         LINE#         185
+  C:08E3H         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:00A0H         PUBLIC        P2
+  C:087DH         PUBLIC        _servo_delay
+  C:0800H         PUBLIC        main
+  B:00A0H.7       PUBLIC        output
+  D:0089H         PUBLIC        TMOD
+  B:00A0H.1       PUBLIC        motn
+  B:00A0H.0       PUBLIC        motp
+  B:0088H.5       PUBLIC        TF0
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  C:08A4H         PUBLIC        _msdelay
+  -------         PROC          _MSDELAY
+  D:0006H         SYMBOL        time
+  -------         DO            
+  D:0004H         SYMBOL        i
+  D:0002H         SYMBOL        j
+  -------         ENDDO         
+  C:08A4H         LINE#         7
+  C:08A4H         LINE#         9
+  C:08A4H         LINE#         13
+  C:08AEH         LINE#         15
+  C:08C3H         LINE#         17
+  -------         ENDPROC       _MSDELAY
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  05/05/2024  03:09:36  PAGE 3
+
+
+  -------         PROC          _SERVO_DELAY
+  D:0006H         SYMBOL        times
+  -------         DO            
+  D:0004H         SYMBOL        m
+  -------         ENDDO         
+  C:087DH         LINE#         20
+  C:087DH         LINE#         22
+  C:087DH         LINE#         26
+  C:088DH         LINE#         28
+  C:088DH         LINE#         30
+  C:0890H         LINE#         32
+  C:0893H         LINE#         34
+  C:0895H         LINE#         36
+  C:0898H         LINE#         38
+  C:089AH         LINE#         40
+  C:089CH         LINE#         42
+  C:08A3H         LINE#         44
+  -------         ENDPROC       _SERVO_DELAY
+  -------         PROC          MAIN
+  -------         DO            
+  D:0082H         SYMBOL        i
+  D:0008H         SYMBOL        n
+  -------         ENDDO         
+  C:0800H         LINE#         46
+  C:0800H         LINE#         48
+  C:0800H         LINE#         52
+  C:0803H         LINE#         54
+  C:0805H         LINE#         55
+  C:0809H         LINE#         57
+  C:0809H         LINE#         59
+  C:0809H         LINE#         61
+  C:081CH         LINE#         63
+  C:081CH         LINE#         65
+  C:081EH         LINE#         67
+  C:0825H         LINE#         69
+  C:0827H         LINE#         71
+  C:082EH         LINE#         73
+  C:0834H         LINE#         75
+  C:0836H         LINE#         76
+  C:0838H         LINE#         77
+  C:0851H         LINE#         78
+  C:0853H         LINE#         79
+  C:0855H         LINE#         80
+  C:0870H         LINE#         83
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        ?C?SLCMP
+  C:08C4H         PUBLIC        ?C?SLCMP
+  -------         ENDMOD        ?C?SLCMP
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00D3H BYTE (10%) *
+******************************************************************************
+
+Program Size: data=11.0 xdata=0 code=233
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
