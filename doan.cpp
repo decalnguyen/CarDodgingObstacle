@@ -7,7 +7,8 @@ sbit BUTTON_RIGHT_PIN = P3^2;
 sbit BUTTON_LEFT_PIN = P3^7;
 sbit SENSOR_PIN = P2^4;
 sbit SERVO_PIN = P2^7;
-int steering_angle;
+#define F_CPU = 12000000L
+unsigned int steering_angle;
 void msdelay(unsigned int time)  // Function for creating delay in milliseconds.
 
 {
@@ -21,7 +22,7 @@ void msdelay(unsigned int time)  // Function for creating delay in milliseconds.
 }
 
 
-void servo_delay(int times)     // Creating Delay in multilple of 50us using 8051 Timers
+void servo_delay(unsigned int times)     // Creating Delay in multilple of 50us using 8051 Timers
 
 {
 
@@ -47,14 +48,14 @@ void servo_delay(int times)     // Creating Delay in multilple of 50us using 805
 
 }
 
-/*void set_servo_angle(unsigned int angle) {
+void set_servo_angle(unsigned int angle) {
     unsigned int pulse_width = (angle * 10) + 1000; // 1ms = 0 degrees, 2ms = 180 degrees (adjust if needed)
-    unsigned int reload_value = (65536 - pulse_width * (F_CPU / 12000000)); // Calculate timer reload value 
-
-    TH0 = reload_value >> 8; 
-    TL0 = reload_value & 0xFF; 
+    unsigned int reload_value = (65536 - pulse_width * (12000000 / 12000000)); // Calculate timer reload value 
+	SERVO_PIN = 0;
+   servo_delay(reload_value);
+	SERVO_PIN = 1;
 }
-*/
+
 
 void delay_ms(unsigned int ms);
 
@@ -71,7 +72,7 @@ void go_backward()
 {	
      IN3 = 0;
      IN4 = 1;
-     
+     msdelay(500);
      IN3 = 1;
      IN4 = 0;
 }
@@ -84,7 +85,7 @@ void turn_left(int angle)
      if (steering_angle <-90) {	
 	 steering_angle = -90;
      }
-//     set_servo_angel(angle);
+    set_servo_angle(steering_angle);
 }
 
 //Handle turn right
@@ -94,7 +95,7 @@ void turn_right(int angle)
      if (steering_angle > 90) {
 	 steering_angle = 90;
      }
-//     set_servo_angel(angle);
+     set_servo_angle(steering_angle);
 }
 
 //Handle button signal 
@@ -116,17 +117,20 @@ void init() {
 }
 
 void main() {
-   init();
+  // init();
 //   P2.F0 = 0;
 
     //P1
-   
+	TMOD=0x01;                // Selecting Timer 0, Mode 1
+
+   // output=0;
+   SENSOR_PIN =0;
    while (1) {
    
-     // distance = get_distance();   
-      
-      // Handle sensor value 
-      if (SENSOR_PIN == 1) {
+    go_forward();
+		 msdelay(500);
+		 go_backward();
+     if (SENSOR_PIN == 1) {
 	 go_backward();
 				msdelay(500);
 	 turn_right(30);
@@ -138,5 +142,6 @@ void main() {
 				msdelay(500);
       }
    }
+	
 }
 
